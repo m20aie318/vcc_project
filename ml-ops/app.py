@@ -1,6 +1,5 @@
 from sentence_transformers import SentenceTransformer, util
 from pymongo import MongoClient
-from bson import ObjectId
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
@@ -32,14 +31,22 @@ def similar_notes():
         note_embedding = bert_model.encode(note["content"], convert_to_tensor=True)
         similarity_score = util.pytorch_cos_sim(query_embedding, note_embedding)[0][0].item()
 
-        # Append note details along with similarity score
-        similarity_results.append({
-            "note_id": str(note["_id"]),
-            "title": note["title"],
-            "content": note["content"],
-            "timestamp": note["timestamp"].isoformat() if "timestamp" in note else None,
-            "similarity_score": similarity_score
-        })
+        # Check if the note contains the query string
+        if query_string.lower() in note["content"].lower():
+            # Extract a relevant context substring from the note
+            context_start = max(0, note["content"].lower().find(query_string.lower()) - 50)
+            context_end = min(len(note["content"]), note["content"].lower().find(query_string.lower()) + 50)
+            context = note["content"][context_start:context_end]
+
+            # Append note details along with similarity score and context
+            similarity_results.append({
+                "note_id": str(note["_id"]),
+                "title": note["title"],
+                "content": note["content"],
+                "timestamp": note["timestamp"].isoformat() if "timestamp" in note else None,
+                "similarity_score": similarity_score,
+                "context": context
+            })
 
     # Sort notes by similarity score in descending order
     similarity_results.sort(key=lambda x: x["similarity_score"], reverse=True)
