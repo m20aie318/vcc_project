@@ -15,3 +15,9 @@ build_image() {
 build_image "frontend-service:snapshot1" "./frontend-service"
 build_image "notes-service:snapshot1" "./notes-service"
 build_image "ml-ops:snapshot1" "./ml-ops"
+
+
+docker run -d -p 27017:27017 mongo
+docker run -d -p 80:80 frontend-service:snapshot1
+docker run -d -p 5001:5000 notes-service:snapshot1
+docker run -d -p 5002:5000 ml-ops:snapshot1
