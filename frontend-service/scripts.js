@@ -61,7 +61,7 @@ async function searchNotes() {
       html += ` <div class="noteCard my-2 mx-2 card" style="width: 18rem">
       <div class="card-body">
         <h5 class="card-title">Note ${note.title}</h5>
-        <p class="card-text"> ${note.title}</p>
+        <p class="card-text"> ${note.content}</p>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${modelid}">Details</button>
       </div>
     </div>`;
