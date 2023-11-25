@@ -25,13 +25,30 @@ async function fetchNotes() {
     let html = "";
 
     data.notes.forEach(note => {
+        var modelid = "note" + size;
         html += ` <div class="noteCard my-2 mx-2 card" style="width: 18rem">
         <div class="card-body">
           <h5 class="card-title">Note ${note.title}</h5>
           <p class="card-text"> ${note.title}</p>
-          <button id= "$${note.content}" onclick= "deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${modelid}">Details</button>
         </div>
-      </div>`;
+      </div>
+      <div id="${modelid}" class="modal-dialog fade" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">${note.title}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                ${note.content}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>`;
       size = size + 1
     });
 
@@ -42,4 +59,32 @@ async function fetchNotes() {
     else {
         notesEle.innerHTML = `Nothing to show! Use "Add a Note" section to add note`
     }
+}
+
+
+async function searchNotes() {
+  const response = await fetch("http://localhost:5001/notes");
+  const data = await response.json();
+  var size = 0;
+  let html = "";
+
+  data.notes.forEach(note => {
+      var modelid = "note" + size;
+      html += ` <div class="noteCard my-2 mx-2 card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">Note ${note.title}</h5>
+        <p class="card-text"> ${note.title}</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${modelid}">Details</button>
+      </div>
+    </div>`;
+    size = size + 1
+  });
+
+  let notesEle = document.getElementById("searched_notes");
+  if (size != 0) {
+      notesEle.innerHTML = html;
+  }
+  else {
+      notesEle.innerHTML = `Nothing to show! Use "Add a Note" section to add note`
+  }
 }

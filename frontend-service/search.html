@@ -1,0 +1,75 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="jquery-3.2.1.slim.min.js"></script>
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="tailwind.min.css"></script>
+    <script src="alpine.min.js"></script>
+    <script src="font-awesome.min.css"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Notes App</h3>
+            </div>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="index.html" class="download">Home</a>
+                </li>
+                <li>
+                    <a href="search.html" class="download">Search</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <div class="card">
+                <div class="card-header">
+                    Provide context to search
+                </div>
+                <div class="card-body">
+                    <div class="form-row align-items-center">
+                        <label class="sr-only" for="inlineFormInputGroupUsername">asdasdadasdasdasdasd</label>
+                        <div class="col-sm-3 my-1">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">!</div>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Search query..">
+                          </div>
+                        </div>
+                        <div class="col-auto my-1">
+                          <button type="button" class="btn btn-primary" onclick="searchNotes()">Find</button>
+                        </div>
+                      </div>
+                </div>
+              </div>
+
+            <label for="exampleInputEmail1"></label>
+            
+            
+            <div id="searched_notes" class="row container-fluid">
+
+            </div>
+
+            <div class="line"></div>
+
+        </div>
+</body>
+
+</html>
