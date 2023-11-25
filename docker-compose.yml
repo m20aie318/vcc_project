@@ -6,6 +6,8 @@ services:
       - "5000:80"
     depends_on:
       - mongo
+    expose:
+      - 5000
   backend:
     image: "notes-service:snapshot1"
     ports:
@@ -13,6 +15,8 @@ services:
     depends_on:
       - mongo
       - frontend
+    expose:
+      - 5001
   mlops:
     image: "ml-ops:snapshot1"
     ports:
@@ -21,7 +25,11 @@ services:
       - mongo
       - frontend
       - backend
+    expose:
+      - 5002
   mongo:
     image: "mongo:latest"
     ports:
       - "27017:27017"
+    expose:
+      - 27017

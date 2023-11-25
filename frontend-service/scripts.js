@@ -4,7 +4,7 @@ async function addNote() {
     const title = document.getElementById("recipient-name").value;
     const content = document.getElementById("message-text").value;
 
-    const response = await fetch("http://172.17.0.3:5001/notes", {
+    const response = await fetch("http://localhost:5001/notes", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -19,7 +19,7 @@ async function addNote() {
 }
 
 async function fetchNotes() {
-    const response = await fetch("http://172.17.0.3:5001/notes");
+    const response = await fetch("http://localhost:5001/notes");
     const data = await response.json();
     var size = 0;
     let html = "";
@@ -63,12 +63,16 @@ async function fetchNotes() {
 
 
 async function searchNotes() {
-  const response = await fetch("http://localhost:5001/notes");
+  const key = document.getElementById("inlineFormInputGroupUsername").value;
+  const response = await fetch("http://localhost:5002/similar_notes?query_string="+key);
   const data = await response.json();
   var size = 0;
   let html = "";
-
-  data.notes.forEach(note => {
+  
+  var strData = JSON.stringify(data)
+  strData = JSON.parse(strData)
+  console.log(strData)
+  strData.similar_notes.forEach(note => {
       var modelid = "note" + size;
       html += ` <div class="noteCard my-2 mx-2 card" style="width: 18rem">
       <div class="card-body">
