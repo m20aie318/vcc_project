@@ -1,0 +1,27 @@
+version: "3"
+services:
+  frontend:
+    image: "frontend-service:snapshot1"
+    ports:
+      - "5000:80"
+    depends_on:
+      - mongo
+  backend:
+    image: "notes-service:snapshot1"
+    ports:
+      - "5001:5000"
+    depends_on:
+      - mongo
+      - frontend
+  mlops:
+    image: "ml-ops:snapshot1"
+    ports:
+      - "5002:5000"
+    depends_on:
+      - mongo
+      - frontend
+      - backend
+  mongo:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"

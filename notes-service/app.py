@@ -6,8 +6,8 @@ from bson import ObjectId
 from datetime import datetime
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
-client = MongoClient("mongodb://172.17.0.2:27017/")  # "mongo" is the name of the MongoDB container
+CORS(app,origins="*")  # Enable CORS for all routes
+client = MongoClient("mongodb://172.19.0.2:27017/")  # "mongo" is the name of the MongoDB container
 
 db = client.notes_db
 notes_collection = db.notes

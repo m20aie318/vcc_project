@@ -4,7 +4,7 @@ async function addNote() {
     const title = document.getElementById("recipient-name").value;
     const content = document.getElementById("message-text").value;
 
-    const response = await fetch("http://localhost:5001/notes", {
+    const response = await fetch("http://172.19.0.4:5001/notes", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -19,7 +19,7 @@ async function addNote() {
 }
 
 async function fetchNotes() {
-    const response = await fetch("http://localhost:5001/notes");
+    const response = await fetch("http://172.19.0.4:5001/notes");
     const data = await response.json();
     var size = 0;
     let html = "";
@@ -63,7 +63,8 @@ async function fetchNotes() {
 
 
 async function searchNotes() {
-  const response = await fetch("http://localhost:5001/notes");
+  const title = document.getElementById("inlineFormInputGroupUsername").value;
+  const response = await fetch("http://172.19.0.5:5002/similar_notes?query_string="+ title);
   const data = await response.json();
   var size = 0;
   let html = "";
